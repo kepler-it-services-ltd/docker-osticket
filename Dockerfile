@@ -1,8 +1,8 @@
 FROM tiredofit/nginx-php-fpm:7.3
-LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
+LABEL maintainer="Kepler IT Services Ltd (hello@keplerit.uk)"
 
 ### Default Runtime Environment Variables
-ENV OSTICKET_VERSION=1.14.1 \
+ENV OSTICKET_VERSION=1.15.2 \
     DB_PREFIX=ost_ \
     DB_PORT=3306 \
     CRON_INTERVAL=10 \
