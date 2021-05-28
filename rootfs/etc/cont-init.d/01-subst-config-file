@@ -1,0 +1,15 @@
+#!/usr/bin/execlineb -P
+
+with-contenv
+multisubstitute
+{
+  importas DATABASE_PREFIX DATABASE_PREFIX
+  importas DATABASE_HOST DATABASE_HOST
+  importas DATABASE_NAME DATABASE_NAME
+  importas DATABASE_USER DATABASE_USER
+  importas DATABASE_PASS DATABASE_PASS
+  importas ADMIN_EMAIL ADMIN_EMAIL
+  importas SECRET_SALT SECRET_SALT
+}
+foreground { echo "${DATABASE_HOST}" }
+/opt/confd/bin/confd -onetime -backend env

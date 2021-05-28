@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+    osticket:
+        build: .
+        ports:
+            - "80:80"
+        environment:
+            - DATABASE_HOST=db
+            - DATABASE_USER=root
+            - DATABASE_PASS=mypass
+            - DATABASE_NAME=root
+            - SECRET_SALT=test123
+            - DATABASE_PREFIX=ost_
+            - ADMIN_EMAIL="hello@example.com"
+    database:
+        image: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=mypass

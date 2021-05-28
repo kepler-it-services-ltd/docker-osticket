@@ -1,0 +1,12 @@
+[template]
+src = "ost-config.php.tmpl"
+dest = "/app/include/ost-config.php"
+keys = [
+    "/database/host",
+    "/database/name",
+    "/database/user",
+    "/database/pass",
+    "/database/prefix",
+    "/admin/email",
+    "/secret/salt",
+]
