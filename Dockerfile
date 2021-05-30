@@ -3,7 +3,9 @@ FROM bitnami/php-fpm:7.4
 ADD https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.1/s6-overlay-amd64-installer /tmp/
 RUN chmod +x /tmp/s6-overlay-amd64-installer && /tmp/s6-overlay-amd64-installer /
 
-RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y nginx cron && \
+    rm -rf /var/lib/apt/lists/*
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 RUN mkdir -p /opt/confd/bin && \
