@@ -22,4 +22,6 @@ COPY ./rootfs /
 
 RUN s6-rmrf /etc/s6/services/s6-fdholderd/down
 
+EXPOSE 80
+
 ENTRYPOINT ["/init"]
