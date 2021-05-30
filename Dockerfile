@@ -17,8 +17,8 @@ RUN mkdir -p /assets/install && \
     curl -ssL https://github.com/osTicket/osTicket/archive/v1.15.2.tar.gz | tar xvfz - --strip 1 -C /assets/install && \
     chmod -R a+rX /assets/install/ && \
     chmod -R u+rw /assets/install/ && \
-    rm -rf assets/install/setup && \
-    mv /assets/install/* /app
+    mv /assets/install/* /app && \
+    rm -rf /app/setup
 
 COPY ./rootfs /
 

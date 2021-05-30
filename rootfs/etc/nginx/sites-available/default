@@ -5,14 +5,47 @@ server {
 
   access_log /proc/self/fd/2;
 
+  set $path_info "";
+
+  location ~ /include {
+    deny all;
+    return 403;
+  }
+
+  if ($request_uri ~ "^/api(/[^\?]+)") {
+    set $path_info $1;
+  }
+
+  location ~ ^/api/(?:tickets|tasks).*$ {
+    try_files $uri $uri/ /api/http.php?$query_string;
+  }
+
+  if ($request_uri ~ "^/scp/.*\.php(/[^\?]+)") {
+    set $path_info $1;
+  }
+
+  if ($request_uri ~ "^/.*\.php(/[^\?]+)") {
+    set $path_info $1;
+  }
+
+  location ~ ^/scp/ajax.php/.*$ {
+    try_files $uri $uri/ /scp/ajax.php?$query_string;
+  }
+
+  location ~ ^/ajax.php/.*$ {
+    try_files $uri $uri/ /ajax.php?$query_string;
+  }
+
+
   location / {
-    try_files $uri $uri/index.php;
+    try_files $uri $uri/ index.php;
   }
 
   location ~ \.php$ {
     # fastcgi_pass [PHP_FPM_LINK_NAME]:9000;
     fastcgi_pass 127.0.0.1:9000;
     fastcgi_index index.php;
+    fastcgi_param  PATH_INFO        $path_info;
     include fastcgi.conf;
   }
 }
