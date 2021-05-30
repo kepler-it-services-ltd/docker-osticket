@@ -3,7 +3,15 @@ server {
 
   root /app;
 
+  add_header X-Content-Type-Options nosniff always;
+  add_header X-XSS-Protection "1; mode=block" always;
+
   access_log /proc/self/fd/2;
+  error_log /proc/self/fd/2;
+
+  charset utf-8;
+
+  index index.html index.htm index.php;
 
   set $path_info "";
 
@@ -16,7 +24,7 @@ server {
     set $path_info $1;
   }
 
-  location ~ ^/api/(?:tickets|tasks).*$ {
+  location /api {
     try_files $uri $uri/ /api/http.php?$query_string;
   }
 
@@ -24,28 +32,37 @@ server {
     set $path_info $1;
   }
 
-  if ($request_uri ~ "^/.*\.php(/[^\?]+)") {
-    set $path_info $1;
-  }
-
   location ~ ^/scp/ajax.php/.*$ {
     try_files $uri $uri/ /scp/ajax.php?$query_string;
+  }
+
+  if ($request_uri ~ "^/ajax.php(/[^\?]+)") {
+    set $path_info $1;
   }
 
   location ~ ^/ajax.php/.*$ {
     try_files $uri $uri/ /ajax.php?$query_string;
   }
 
-
   location / {
     try_files $uri $uri/ index.php;
   }
 
+  location = /favicon.ico { log_not_found off; access_log off; }
+  location = /robots.txt  { access_log off; log_not_found off; }
+
+  # Deny .htaccess file access
+  location ~ /\.ht {
+    deny all;
+  }
+
   location ~ \.php$ {
-    # fastcgi_pass [PHP_FPM_LINK_NAME]:9000;
-    fastcgi_pass 127.0.0.1:9000;
-    fastcgi_index index.php;
-    fastcgi_param  PATH_INFO        $path_info;
-    include fastcgi.conf;
+    try_files      $uri = 404;
+    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    include        fastcgi_params;
+    fastcgi_index  index.php;
+    fastcgi_param  LARA_ENV local; # Environment variable for Laravel
+    fastcgi_param  PATH_INFO   $path_info;
+    fastcgi_pass   127.0.0.1:9000;
   }
 }
