@@ -1,1 +1,1 @@
-* * * * * root /opt/bitnami/php/bin/php /app/api/cron.php
+* * * * * root /opt/bitnami/php/bin/php /app/api/cron.php > /var/log/apicron 2>&1
