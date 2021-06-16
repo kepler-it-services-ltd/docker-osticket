@@ -6,6 +6,7 @@ keys = [
     "/database/name",
     "/database/user",
     "/database/pass",
+    "/database/port",
     "/database/prefix",
     "/admin/email",
     "/secret/salt",

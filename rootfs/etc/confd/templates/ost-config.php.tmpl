@@ -40,6 +40,7 @@ define('DBHOST','{{getv "/database/host"}}');
 define('DBNAME','{{getv "/database/name"}}');
 define('DBUSER','{{getv "/database/user"}}');
 define('DBPASS','{{getv "/database/pass"}}');
+ini_set('mysqli.default_port','{{getv "/database/port"}}');
 
 #Table prefix
 define('TABLE_PREFIX','{{getv "/database/prefix"}}');
