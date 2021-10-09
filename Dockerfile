@@ -14,7 +14,7 @@ RUN mkdir -p /opt/confd/bin && \
 
 RUN mkdir -p /assets/install && \
     cd /assets/install && \
-    curl -ssL https://github.com/osTicket/osTicket/archive/v1.15.3.tar.gz | tar xvfz - --strip 1 -C /assets/install && \
+    curl -ssL https://github.com/osTicket/osTicket/archive/v1.15.4.tar.gz | tar xvfz - --strip 1 -C /assets/install && \
     chmod -R a+rX /assets/install/ && \
     chmod -R u+rw /assets/install/ && \
     mv /assets/install/* /app && \
